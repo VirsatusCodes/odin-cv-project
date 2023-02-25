@@ -6,7 +6,7 @@ here or put it in a central location not sure which
 would be considered "best practice" */
 
 const InputSubmittedCheck = (props) => {
-    const {text, submitted, change, box} = props
+    const {text, submitted, change, box, objSection} = props
     console.log(text)
     if(!submitted) {
       return (
@@ -16,6 +16,7 @@ const InputSubmittedCheck = (props) => {
             onChange={change}
             placeholder={text}
             name={box}
+            data-value={objSection}
             ></input>
       )
   } else return (
@@ -57,7 +58,8 @@ const {button, userInfo, handleChange} = props
                 text={userInfo.name} 
                 submitted={userInfo.submitted}
                 change={handleChange}
-                box='name'/>
+                box='name'
+                objSection='general'/>
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Phone #:</p>
@@ -65,7 +67,8 @@ const {button, userInfo, handleChange} = props
                 text={userInfo.phone} 
                 submitted={userInfo.submitted}
                 change={handleChange}
-                box='phone'/>
+                box='phone'
+                objSection='general'/>
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Email:</p>
@@ -73,7 +76,8 @@ const {button, userInfo, handleChange} = props
                 text={userInfo.email} 
                 submitted={userInfo.submitted}
                 change={handleChange}
-                box='email'/>
+                box='email'
+                objSection='general'/>
           </div>
           <ButtonSubmittedCeck
           submitted={userInfo.submitted}

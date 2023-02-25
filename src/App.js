@@ -40,19 +40,31 @@ GeneralSubmitBtn = (e) => {
   console.log(this.state.general)
 }
 
+/* maybe to make handleChange and generalSubmitBtn usable by the other
+sections of my resume i could somehow use a for...in loop to create
+a setState modifier for each and update only the one that is 
+being currently changed, i have a crude version of that that
+relies on setState being the same number of items in each
+object section for handleChange */
+
 handleChange = (e) => {
+  const type = e.target.dataset.value;
   const value= e.target.value;
   const info = e.target.name;
-  const general = this.state.general
-  const totalObjItems = ['name', 'phone', 'email']
+  const objKey = this.state[type]
+  const totalObjItems = []
+
+  for (const userItem in this.state[type]) {
+    totalObjItems.push(userItem)
+  }
   const nonUpdatingObjItems = totalObjItems.filter(element => element !== info)
 
   this.setState({
-    general:{
+    [type]:{
       [info]: value,
-      [nonUpdatingObjItems[0]]: general[nonUpdatingObjItems[0]],
-      [nonUpdatingObjItems[1]]: general[nonUpdatingObjItems[1]],
-      submitted: general.submitted,
+      [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
+      [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
+      submitted: objKey.submitted,
     }
   })
 }
