@@ -18,22 +18,31 @@ class App extends Component {
 
 GeneralSubmitBtn = (e) => {
   e.preventDefault();
-  const general = this.state.general
-  if(general.submitted=== true) {
+
+  const type = e.target.dataset.value;
+  const objKey = this.state[type]
+  const totalObjItems = []
+
+  for (const userItem in objKey) {
+    totalObjItems.push(userItem)
+  }
+  const nonUpdatingObjItems = totalObjItems.filter(element => element !== 'submitted')
+
+  if(objKey.submitted=== true) {
     this.setState({
-      general: {
-        name: general.name,
-        phone: general.phone,
-        email: general.email,
+      [type]: {
+        [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
+        [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
+        [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
         submitted: false,
       }
     })
 
   } else this.setState({
-    general: {
-      name: general.name,
-      phone: general.phone,
-      email: general.email,
+    [type]: {
+      [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
+      [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
+      [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
       submitted: true,
     }
   })
@@ -54,17 +63,17 @@ handleChange = (e) => {
   const objKey = this.state[type]
   const totalObjItems = []
 
-  for (const userItem in this.state[type]) {
+  for (const userItem in objKey) {
     totalObjItems.push(userItem)
   }
   const nonUpdatingObjItems = totalObjItems.filter(element => element !== info)
-
+console.log(totalObjItems)
   this.setState({
     [type]:{
       [info]: value,
       [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
       [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
-      submitted: objKey.submitted,
+      [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
     }
   })
 }
@@ -93,19 +102,21 @@ InputSubmittedCheck = (props) => {
 }
 
 ButtonSubmittedCeck = (props) => {
-  const {submitted, button} = props;
+  const {submitted, button, objSection} = props;
   if(!submitted) {
       return (
           <button 
           onClick={button}
-          type='submit'>
+          type='submit'
+          data-value={objSection}>
             Submit General Information
         </button>
       )
   } else return (
       <button 
       onClick={button}
-      type='submit'>
+      type='submit'
+      data-value={objSection}>
         Edit General Information
     </button>
   )

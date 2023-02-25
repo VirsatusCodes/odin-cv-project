@@ -39,6 +39,7 @@ const {button, userInfo, handleChange, InputCheck, BtnCheck} = props
           <BtnCheck
           submitted={userInfo.submitted}
           button={button}
+          objSection='general'
           />
           </div>
     )
