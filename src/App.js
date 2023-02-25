@@ -69,21 +69,62 @@ handleChange = (e) => {
   })
 }
 
+InputSubmittedCheck = (props) => {
+  const {text, submitted, change, box, objSection} = props
+  console.log(text)
+  if(!submitted) {
+    return (
+        <input 
+          type={'text'}
+          className={'userInput'}
+          onChange={change}
+          placeholder={text}
+          name={box}
+          data-value={objSection}
+          ></input>
+    )
+} else return (
+  <p 
+  className='submittedInfo'
+  value={text}>
+    {text}
+  </p>
+)
+}
+
+ButtonSubmittedCeck = (props) => {
+  const {submitted, button} = props;
+  if(!submitted) {
+      return (
+          <button 
+          onClick={button}
+          type='submit'>
+            Submit General Information
+        </button>
+      )
+  } else return (
+      <button 
+      onClick={button}
+      type='submit'>
+        Edit General Information
+    </button>
+  )
+}
 
   render() {
     const {general} = this.state
-
     return(
       <div>
         <form>
           <General  button={this.GeneralSubmitBtn} 
                     userInfo={general}
-                    handleChange={this.handleChange}/>        
+                    handleChange={this.handleChange}
+                    InputCheck={this.InputSubmittedCheck}
+                    BtnCheck={this.ButtonSubmittedCeck}/>        
         </form>
       </div>
     )
   }
 }
-
 
 export default App;

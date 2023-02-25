@@ -4,57 +4,14 @@ import React from "react";
 format ill use for all sections, either import it from
 here or put it in a central location not sure which
 would be considered "best practice" */
-
-const InputSubmittedCheck = (props) => {
-    const {text, submitted, change, box, objSection} = props
-    console.log(text)
-    if(!submitted) {
-      return (
-          <input 
-            type={'text'}
-            className={'userInput'}
-            onChange={change}
-            placeholder={text}
-            name={box}
-            data-value={objSection}
-            ></input>
-      )
-  } else return (
-    <p 
-    className='submittedInfo'
-    value={text}
-    >{text}</p>
-  )
-  }
-
-  const ButtonSubmittedCeck = (props) => {
-    const {submitted, button} = props;
-    if(!submitted) {
-        return (
-            <button 
-            onClick={button}
-            type='submit'>
-              Submit General Information
-          </button>
-        )
-    } else return (
-        <button 
-        onClick={button}
-        type='submit'>
-          Edit General Information
-      </button>
-    )
-
-  }
-
 const General = (props) => {
-const {button, userInfo, handleChange} = props
+const {button, userInfo, handleChange, InputCheck, BtnCheck} = props
 
     return (
         <div className='section'>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Name:</p>
-            <InputSubmittedCheck
+            <InputCheck
                 text={userInfo.name} 
                 submitted={userInfo.submitted}
                 change={handleChange}
@@ -63,7 +20,7 @@ const {button, userInfo, handleChange} = props
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Phone #:</p>
-            <InputSubmittedCheck 
+            <InputCheck
                 text={userInfo.phone} 
                 submitted={userInfo.submitted}
                 change={handleChange}
@@ -72,14 +29,14 @@ const {button, userInfo, handleChange} = props
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Email:</p>
-            <InputSubmittedCheck 
+            <InputCheck
                 text={userInfo.email} 
                 submitted={userInfo.submitted}
                 change={handleChange}
                 box='email'
                 objSection='general'/>
           </div>
-          <ButtonSubmittedCeck
+          <BtnCheck
           submitted={userInfo.submitted}
           button={button}
           />
