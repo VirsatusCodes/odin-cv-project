@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {General} from './components/General'
+import {Education} from './components/Education'
+import {Jobs} from './components/Jobs'
 import './App.css';
 
 class App extends Component {
@@ -11,12 +13,22 @@ class App extends Component {
         phone: '',
         email: '',
         submitted: false,
-      }
+      },
+      education: {
+        schoolName: '',
+        yearsOfStudy: '',
+        degreeName: '',
+      },
+      jobs: {
+        companyName: '',
+        position: '',
+        duration: '',
+      },
     }
   }
 
 
-GeneralSubmitBtn = (e) => {
+SubmitBtn = (e) => {
   e.preventDefault();
 
   const type = e.target.dataset.value;
@@ -123,15 +135,27 @@ ButtonSubmittedCeck = (props) => {
 }
 
   render() {
-    const {general} = this.state
+    const {general, education, jobs} = this.state
     return(
       <div>
         <form>
-          <General  button={this.GeneralSubmitBtn} 
+          <General  button={this.SubmitBtn} 
                     userInfo={general}
                     handleChange={this.handleChange}
                     InputCheck={this.InputSubmittedCheck}
-                    BtnCheck={this.ButtonSubmittedCeck}/>        
+                    BtnCheck={this.ButtonSubmittedCeck}/>
+
+          <Education  button={this.SubmitBtn} 
+                    userInfo={education}
+                    handleChange={this.handleChange}
+                    InputCheck={this.InputSubmittedCheck}
+                    BtnCheck={this.ButtonSubmittedCeck}/>  
+
+          <Jobs     button={this.SubmitBtn} 
+                    userInfo={jobs}
+                    handleChange={this.handleChange}
+                    InputCheck={this.InputSubmittedCheck}
+                    BtnCheck={this.ButtonSubmittedCeck}/>                              
         </form>
       </div>
     )
