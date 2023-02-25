@@ -17,10 +17,19 @@ class App extends Component {
 
 
 GeneralSubmitBtn = (e) => {
-  const general = this.state.general
-
   e.preventDefault();
-  this.setState({
+  const general = this.state.general
+  if(general.submitted=== true) {
+    this.setState({
+      general: {
+        name: general.name,
+        phone: general.phone,
+        email: general.email,
+        submitted: false,
+      }
+    })
+
+  } else this.setState({
     general: {
       name: general.name,
       phone: general.phone,
@@ -56,7 +65,7 @@ handleChange = (e) => {
       <div>
         <form>
           <General  button={this.GeneralSubmitBtn} 
-                    info={general}
+                    userInfo={general}
                     handleChange={this.handleChange}/>        
         </form>
       </div>

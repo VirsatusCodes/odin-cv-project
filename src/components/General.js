@@ -1,6 +1,11 @@
 import React from "react";
 
-const SubmittedCheck = (props) => {
+/* submitted check should be shared this is the
+format ill use for all sections, either import it from
+here or put it in a central location not sure which
+would be considered "best practice" */
+
+const InputSubmittedCheck = (props) => {
     const {text, submitted, change, box} = props
     console.log(text)
     if(!submitted) {
@@ -10,52 +15,70 @@ const SubmittedCheck = (props) => {
             className={'userInput'}
             onChange={change}
             placeholder={text}
-            info={text}
             name={box}
             ></input>
       )
   } else return (
     <p 
-        className='submittedInfo'
-        value={text}
-        >name is{text}</p>
+    className='submittedInfo'
+    value={text}
+    >{text}</p>
   )
   }
 
+  const ButtonSubmittedCeck = (props) => {
+    const {submitted, button} = props;
+    if(!submitted) {
+        return (
+            <button 
+            onClick={button}
+            type='submit'>
+              Submit General Information
+          </button>
+        )
+    } else return (
+        <button 
+        onClick={button}
+        type='submit'>
+          Edit General Information
+      </button>
+    )
+
+  }
+
 const General = (props) => {
-const {button, info, handleChange} = props
+const {button, userInfo, handleChange} = props
 
     return (
         <div className='section'>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Name:</p>
-            <SubmittedCheck
-                text={info.name} 
-                submitted={info.submitted}
+            <InputSubmittedCheck
+                text={userInfo.name} 
+                submitted={userInfo.submitted}
                 change={handleChange}
                 box='name'/>
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Phone #:</p>
-            <SubmittedCheck 
-                text={info.phone} 
-                submitted={info.submitted}
+            <InputSubmittedCheck 
+                text={userInfo.phone} 
+                submitted={userInfo.submitted}
                 change={handleChange}
                 box='phone'/>
           </div>
           <div className='nameInputPair'>
             <p className='inputDescribers'>Email:</p>
-            <SubmittedCheck 
-                text={info.email} 
-                submitted={info.submitted}
+            <InputSubmittedCheck 
+                text={userInfo.email} 
+                submitted={userInfo.submitted}
                 change={handleChange}
                 box='email'/>
           </div>
-          <button 
-            onClick={button}
-            type='submit'>
-              Submit General Information
-          </button>
+          <ButtonSubmittedCeck
+          submitted={userInfo.submitted}
+          button={button}
+          />
           </div>
     )
 }
