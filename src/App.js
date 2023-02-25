@@ -29,10 +29,16 @@ GeneralSubmitBtn = (e) => {
 handleChange = (e) => {
   const value= e.target.value;
   const info = e.target.name;
-  console.log(value, info)
+  const general = this.state.general
+  const totalObjItems = ['name', 'phone', 'email']
+  const nonUpdatingObjItems = totalObjItems.filter(element => element !== info)
+
   this.setState({
-    general: {
-      [info]:value,
+    general:{
+      [info]: value,
+      [nonUpdatingObjItems[0]]: general[nonUpdatingObjItems[0]],
+      [nonUpdatingObjItems[1]]: general[nonUpdatingObjItems[1]],
+      submitted: general.submitted,
     }
   })
 }
