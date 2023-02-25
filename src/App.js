@@ -17,10 +17,15 @@ class App extends Component {
 
 
 GeneralSubmitBtn = (e) => {
+  const general = this.state.general
+
   e.preventDefault();
   this.setState({
     general: {
-      submitted:true,
+      name: general.name,
+      phone: general.phone,
+      email: general.email,
+      submitted: true,
     }
   })
   console.log(this.state.general)
