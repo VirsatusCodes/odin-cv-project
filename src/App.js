@@ -121,7 +121,7 @@ ButtonSubmittedCeck = (props) => {
           onClick={button}
           type='submit'
           data-value={objSection}>
-            Submit General Information
+            Submit
         </button>
       )
   } else return (
@@ -129,7 +129,7 @@ ButtonSubmittedCeck = (props) => {
       onClick={button}
       type='submit'
       data-value={objSection}>
-        Edit General Information
+        Edit 
     </button>
   )
 }
