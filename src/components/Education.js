@@ -28,7 +28,7 @@ const {button, userInfo, handleChange, InputCheck, BtnCheck} = props
                 objSection='education'/>
           </div>
           <div className='nameInputPair'>
-            <p className='inputDescribers'>Your degree you pursued:</p>
+            <p className='inputDescribers'>The degree you pursued:</p>
             <InputCheck
                 text={userInfo.degreeName} 
                 submitted={userInfo.submitted}
