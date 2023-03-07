@@ -1,121 +1,85 @@
-import React, { Component } from 'react'
+import React, {useState, useEffect} from 'react';
 import {General} from './components/General'
 import {Education} from './components/Education'
 import {Jobs} from './components/Jobs'
 import './App.css';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+const App = () => {
+
+  const [data, setData] = useState(
+    {
       general: {
-        name: '',
+        name: 'test',
         phone: '',
         email: '',
         submitted: false,
-      },
+      }/* ,
       education: {
         schoolName: '',
         yearsOfStudy: '',
         degreeName: '',
+        submitted: false,
       },
       jobs: {
         companyName: '',
         position: '',
         duration: '',
-      },
+        submitted: false,
+      }, */
     }
-  }
+  )
 
-
-SubmitBtn = (e) => {
+const SubmitBtn = (e) => {
   e.preventDefault();
 
   const type = e.target.dataset.value;
-  const objKey = this.state[type]
+  const objKey = [type]
   const totalObjItems = []
 
+  console.log(type, objKey)
+
   for (const userItem in objKey) {
+    console.log(userItem, objKey)
     totalObjItems.push(userItem)
   }
   const nonUpdatingObjItems = totalObjItems.filter(element => element !== 'submitted')
 
   if(objKey.submitted=== true) {
-    this.setState({
-      [type]: {
+    [`setData`]({
         [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
         [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
         [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
         submitted: false,
-      }
-    })
+      })
+  
 
-  } else this.setState({
-    [type]: {
+  } else {
+  [`setData`]({
       [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
       [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
       [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
       submitted: true,
-    }
-  })
-  console.log(this.state.general)
+    })
+  console.log(data.general)
+}
 }
 
-/* maybe to make handleChange and generalSubmitBtn usable by the other
-sections of my resume i could somehow use a for...in loop to create
-a setState modifier for each and update only the one that is 
-being currently changed, i have a crude version of that that
-relies on setState being the same number of items in each
-object section for handleChange */
 
-handleChange = (e) => {
-  const type = e.target.dataset.value;
-  const value= e.target.value;
-  const info = e.target.name;
-  const objKey = this.state[type]
-  const totalObjItems = []
-
-  for (const userItem in objKey) {
-    totalObjItems.push(userItem)
+const handleChange = (e) => {
+  console.log(data.general.name)
+    setData({
+      ...data,
+      general:{
+        ...data.general,
+        name: e.target.value
+      }
+    });
   }
-  const nonUpdatingObjItems = totalObjItems.filter(element => element !== info)
-console.log(totalObjItems)
-  this.setState({
-    [type]:{
-      [info]: value,
-      [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
-      [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
-      [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
-    }
-  })
-}
 
-InputSubmittedCheck = (props) => {
-  const {text, submitted, change, box, objSection} = props
-  console.log(text)
-  if(!submitted) {
-    return (
-        <input 
-          type={'text'}
-          className={'userInput'}
-          onChange={change}
-          placeholder={text}
-          name={box}
-          data-value={objSection}
-          ></input>
-    )
-} else return (
-  <p 
-  className='submittedInfo'
-  value={text}>
-    {text}
-  </p>
-)
-}
-
-ButtonSubmittedCeck = (props) => {
-  const {submitted, button, objSection} = props;
-  if(!submitted) {
+  
+  const ButtonSubmittedCheck = (props) => {
+    const {submitted, button, objSection} = props;
+    if(!submitted) {
       return (
           <button 
           onClick={button}
@@ -124,7 +88,7 @@ ButtonSubmittedCeck = (props) => {
             Submit
         </button>
       )
-  } else return (
+    } else return (
       <button 
       onClick={button}
       type='submit'
@@ -133,33 +97,55 @@ ButtonSubmittedCeck = (props) => {
     </button>
   )
 }
-
-  render() {
-    const {general, education, jobs} = this.state
+const InputSubmittedCheck = ({
+  userInfo, 
+  onChange,
+  submitted
+}) => {
+  if(!submitted) {
+    return (
+      <div>
+        <input 
+          type={'text'}
+          className={'userInput'}
+          value={userInfo.name}
+          onChange={onChange}
+          />
+      </div>
+    )
+  } else {
+    return (
+      <p 
+      className='submittedInfo'>
+        {userInfo.name}
+      </p>
+    )
+  }
+}
+console.log(data.general.name)
     return(
       <div>
         <form>
-          <General  button={this.SubmitBtn} 
-                    userInfo={general}
-                    handleChange={this.handleChange}
-                    InputCheck={this.InputSubmittedCheck}
-                    BtnCheck={this.ButtonSubmittedCeck}/>
+          <General  userInfo={data.general}
+                    onChange={handleChange}
+                    /* button={SubmitBtn}
+                    BtnCheck={ButtonSubmittedCeck} *//>        
+{/* 
+          <Education  button={SubmitBtn} 
+                    userInfo={data.education}
+                    handleChange={handleChange}
+                    InputCheck={InputSubmittedCheck}
+                    BtnCheck={ButtonSubmittedCeck}/>  
 
-          <Education  button={this.SubmitBtn} 
-                    userInfo={education}
-                    handleChange={this.handleChange}
-                    InputCheck={this.InputSubmittedCheck}
-                    BtnCheck={this.ButtonSubmittedCeck}/>  
-
-          <Jobs     button={this.SubmitBtn} 
-                    userInfo={jobs}
-                    handleChange={this.handleChange}
-                    InputCheck={this.InputSubmittedCheck}
-                    BtnCheck={this.ButtonSubmittedCeck}/>                              
+          <Jobs     button={SubmitBtn} 
+                    userInfo={data.jobs}
+                    handleChange={handleChange}
+                    InputCheck={InputSubmittedCheck}
+                    BtnCheck={ButtonSubmittedCeck}/>      */}                         
         </form>
       </div>
     )
   }
-}
+
 
 export default App;
