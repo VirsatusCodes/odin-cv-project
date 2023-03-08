@@ -1,11 +1,11 @@
 import React from "react";
 import {InputSubmittedCheck} from './renderFormats/InputSubmittedChecker'
+import {ButtonSubmittedCheck} from './renderFormats/ButtonSubmittedChecker'
 
 const General = ({
   userInfo, 
   onChange,
   button,
-  BtnCheck
 }) => {
   return (
     <div className="section">
@@ -39,7 +39,7 @@ const General = ({
           objSection={'general'}
         />
       </div>
-      <BtnCheck
+      <ButtonSubmittedCheck
           submitted={userInfo.submitted}
           button={button}
           objSection={'general'}
@@ -49,5 +49,3 @@ const General = ({
 }
 
 export {General}
-
-

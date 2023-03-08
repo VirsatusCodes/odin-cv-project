@@ -13,7 +13,7 @@ const App = () => {
         phone: '',
         email: '',
         submitted: false,
-      }/* ,
+      },
       education: {
         schoolName: '',
         yearsOfStudy: '',
@@ -25,43 +25,31 @@ const App = () => {
         position: '',
         duration: '',
         submitted: false,
-      }, */
+      },
     }
   )
 
 const SubmitBtn = (e) => {
   e.preventDefault();
 
-  const type = e.target.dataset.value;
-  const objKey = [type]
-  const totalObjItems = []
-
-  console.log(type, objKey)
-
-  for (const userItem in objKey) {
-    console.log(userItem, objKey)
-    totalObjItems.push(userItem)
-  }
-  const nonUpdatingObjItems = totalObjItems.filter(element => element !== 'submitted')
-
-  if(objKey.submitted=== true) {
-    [`setData`]({
-        [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
-        [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
-        [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
-        submitted: false,
-      })
-  
-
-  } else {
-  [`setData`]({
-      [nonUpdatingObjItems[0]]: objKey[nonUpdatingObjItems[0]],
-      [nonUpdatingObjItems[1]]: objKey[nonUpdatingObjItems[1]],
-      [nonUpdatingObjItems[2]]: objKey[nonUpdatingObjItems[2]],
-      submitted: true,
+ const {dataset} = e.target
+ 
+ if(!data[dataset.value].submitted) {
+  setData({
+    ...data,
+      [dataset.value]:{
+        ...data[dataset.value],
+        submitted: true
+      }
+    })} else {
+      setData({
+    ...data,
+      [dataset.value]:{
+        ...data[dataset.value],
+        submitted: false
+      }
     })
-  console.log(data.general)
-}
+    } 
 }
 
 
@@ -77,49 +65,21 @@ const handleChange = (e) => {
       }
     });
   }
-
   
-  const ButtonSubmittedCheck = (props) => {
-    const {submitted, button, objSection} = props;
-    if(!submitted) {
-      return (
-          <button 
-          onClick={button}
-          type='submit'
-          data-value={objSection}>
-            Submit
-        </button>
-      )
-    } else return (
-      <button 
-      onClick={button}
-      type='submit'
-      data-value={objSection}>
-        Edit 
-    </button>
-  )
-}
-
-console.log(data.general.name)
     return(
       <div>
         <form>
           <General  userInfo={data.general}
                     onChange={handleChange}
-                    button={SubmitBtn}
-                    BtnCheck={ButtonSubmittedCheck}/>        
-{/* 
-          <Education  button={SubmitBtn} 
-                    userInfo={data.education}
-                    handleChange={handleChange}
-                    InputCheck={InputSubmittedCheck}
-                    BtnCheck={ButtonSubmittedCeck}/>  
+                    button={SubmitBtn}/>        
 
-          <Jobs     button={SubmitBtn} 
-                    userInfo={data.jobs}
-                    handleChange={handleChange}
-                    InputCheck={InputSubmittedCheck}
-                    BtnCheck={ButtonSubmittedCeck}/>      */}                         
+          <Education  userInfo={data.education}
+                      onChange={handleChange}
+                      button={SubmitBtn}/>  
+
+          <Jobs userInfo={data.jobs}
+                onChange={handleChange}
+                button={SubmitBtn}/>                         
         </form>
       </div>
     )

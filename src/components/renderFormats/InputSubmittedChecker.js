@@ -24,7 +24,7 @@ const InputSubmittedCheck = ({
       return (
         <p 
         className='submittedInfo'>
-          {userInfo.name}
+            {userInfo}
         </p>
       )
     }
