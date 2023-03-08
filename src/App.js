@@ -66,12 +66,14 @@ const SubmitBtn = (e) => {
 
 
 const handleChange = (e) => {
-  console.log(data.general.name)
+  const {name, value, dataset} = e.target
+  console.log('1',name, '2',value,'3', dataset.value)
+  console.log(e.target)
     setData({
       ...data,
-      general:{
-        ...data.general,
-        name: e.target.value
+      [dataset.value]:{
+        ...data[dataset.value],
+        [name]: e.target.value
       }
     });
   }
@@ -97,39 +99,15 @@ const handleChange = (e) => {
     </button>
   )
 }
-const InputSubmittedCheck = ({
-  userInfo, 
-  onChange,
-  submitted
-}) => {
-  if(!submitted) {
-    return (
-      <div>
-        <input 
-          type={'text'}
-          className={'userInput'}
-          value={userInfo.name}
-          onChange={onChange}
-          />
-      </div>
-    )
-  } else {
-    return (
-      <p 
-      className='submittedInfo'>
-        {userInfo.name}
-      </p>
-    )
-  }
-}
+
 console.log(data.general.name)
     return(
       <div>
         <form>
           <General  userInfo={data.general}
                     onChange={handleChange}
-                    /* button={SubmitBtn}
-                    BtnCheck={ButtonSubmittedCeck} *//>        
+                    button={SubmitBtn}
+                    BtnCheck={ButtonSubmittedCheck}/>        
 {/* 
           <Education  button={SubmitBtn} 
                     userInfo={data.education}

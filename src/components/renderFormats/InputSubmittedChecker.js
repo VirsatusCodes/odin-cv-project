@@ -3,7 +3,9 @@ import React from "react";
 const InputSubmittedCheck = ({
     userInfo, 
     onChange,
-    submitted
+    submitted,
+    name,
+    objSection,
   }) => {
     if(!submitted) {
       return (
@@ -11,8 +13,10 @@ const InputSubmittedCheck = ({
           <input 
             type={'text'}
             className={'userInput'}
-            value={userInfo.name}
+            value={userInfo}
             onChange={onChange}
+            name={name}
+            data-value={objSection}
             />
         </div>
       )

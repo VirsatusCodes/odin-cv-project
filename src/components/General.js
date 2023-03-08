@@ -4,18 +4,46 @@ import {InputSubmittedCheck} from './renderFormats/InputSubmittedChecker'
 const General = ({
   userInfo, 
   onChange,
+  button,
+  BtnCheck
 }) => {
   return (
     <div className="section">
       <div className="nameInputPair">
         <p className="inputDescribers">Name:</p>
-
         <InputSubmittedCheck
-          userInfo={userInfo}
+          userInfo={userInfo.name}
           onChange={onChange}
           submitted={userInfo.submitted}
+          name={'name'}
+          objSection={'general'}
         />
       </div>
+      <div className="nameInputPair">
+        <p className="inputDescribers">Phone #:</p>
+        <InputSubmittedCheck
+          userInfo={userInfo.phone}
+          onChange={onChange}
+          submitted={userInfo.submitted}
+          name={'phone'}
+          objSection={'general'}
+        />
+      </div>
+      <div className="nameInputPair">
+        <p className="inputDescribers">Email:</p>
+        <InputSubmittedCheck
+          userInfo={userInfo.email}
+          onChange={onChange}
+          submitted={userInfo.submitted}
+          name={'email'}
+          objSection={'general'}
+        />
+      </div>
+      <BtnCheck
+          submitted={userInfo.submitted}
+          button={button}
+          objSection={'general'}
+          />
     </div>
   )
 }
